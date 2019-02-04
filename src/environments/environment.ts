@@ -6,6 +6,15 @@ export const environment = {
   production: false
 };
 
+// Link da API
+export const API_URL = 'http://locahost:3000'
+
+// Endpoints
+export const ENDPOINT = {
+  "DADO" : '/dado',
+  "LOGIN" : '/auth/login'
+}
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
