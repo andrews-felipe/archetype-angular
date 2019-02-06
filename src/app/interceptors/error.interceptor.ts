@@ -14,13 +14,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 catchError((error: HttpErrorResponse) => {
                     let errorMessage = '';
                     if (error.error instanceof ErrorEvent) {
-                    
                         errorMessage = `Ops! Erro: ${error.error.message}`;
                     } else {
-                     
                         errorMessage = `Error Code: ${error.status}\nMensagem: ${error.message}`;
                     }
-                    window.alert(errorMessage);
                     return throwError(errorMessage);
                 })
             )
