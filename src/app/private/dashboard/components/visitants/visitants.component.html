@@ -1,0 +1,48 @@
+<div class="header">
+  <h1>{{title}}</h1>
+  <button class="btn btn-primary" (click)="changeView()" [innerHTML]="buttonTitle"></button>
+</div>
+
+<div class="list" *ngIf="view; else form">
+  <table>
+    <tr>
+      <th class="head-field-table">ID Celular</th>
+      <th class="head-field-table">Nome</th>
+      <th class="head-field-table">Email</th>
+      <th class="head-field-table">Telefone</th>
+      <th class="head-field-table">Data Acesso</th>
+    </tr>
+    <tr *ngFor="let visitant of _visitants | async">
+      <td>{{visitant.id_device}}</td>
+      <td>{{visitant.name}}</td>
+      <td>{{visitant.email}}</td>
+      <td>{{visitant.phone}}</td>
+      <td>{{visitant.createdAt}}</td>
+    </tr>
+  </table>
+</div>
+<ng-template #form>
+  <div class="form">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Nome" formControlName="name">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Email" formControlName="email">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Telefone" formControlName="phone">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="ID Celular" formControlName="id_device">
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary btn-submit" type="submit">Enviar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

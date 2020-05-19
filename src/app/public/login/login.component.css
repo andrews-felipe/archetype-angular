@@ -1,0 +1,48 @@
+.flex {
+  background: #f3aa39;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border: solid 5px #f3aa39;
+  top: -5rem;
+}
+
+.avatar img {
+  width: 10rem;
+  position: absolute;
+  border: solid 2px #f59b37;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+form {
+  background: #ffd369;
+  padding: 3rem 1rem 2rem 1rem;
+  box-shadow: 3px 3px 1px #f59b37;
+  border-radius: 6px;
+}
+.input-group-text,
+.form-control {
+  border: unset;
+}
+.input-group-text {
+  background-color: #f59b37;
+}

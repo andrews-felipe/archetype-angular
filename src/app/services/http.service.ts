@@ -19,12 +19,12 @@ export class HttpService {
     return this.http.get(`${API_URL}${endpoint}/${id}`)
   }
 
-  post(endpoint : string, object : any): Observable<any> {
-    return this.http.post<any>(`${API_URL}${endpoint}`, JSON.stringify(object))
+  post(endpoint : string, object): Observable<any> {
+    return this.http.post<any>(`${API_URL}${endpoint}`, object)
   }
 
   put(endpoint, id, object): Observable<any> {
-    return this.http.put(`${API_URL}${endpoint}/${id}`, JSON.stringify(object))
+    return this.http.put(`${API_URL}${endpoint}/${id}`, object)
      
   }
 

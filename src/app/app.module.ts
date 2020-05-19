@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthGuard } from './guards/auth.guard';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,14 @@ import { AuthGuard } from './guards/auth.guard';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    HttpClientModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

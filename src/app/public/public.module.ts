@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { PublicRoutingModule } from './public-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from '../interceptors/error.interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,14 +16,16 @@ import { HttpErrorInterceptor } from '../interceptors/error.interceptor';
   imports: [
     CommonModule,
     PublicRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers : [
-    AuthService, 
+  providers: [
+    AuthService,
     {
-      provide : HTTP_INTERCEPTORS,
-      useClass : HttpErrorInterceptor,
-      multi : true
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
     }
   ]
 })

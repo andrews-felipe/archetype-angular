@@ -1,0 +1,59 @@
+<div class="header">
+  <h1>{{title}}</h1>
+  <button class="btn btn-primary" (click)="changeView()" [innerHTML]="buttonTitle"></button>
+</div>
+
+<div class="list" *ngIf="view; else form">
+  <table>
+    <tr>
+      <th class="head-field-table">Nome</th>
+      <th class="head-field-table">Email</th>
+      <th class="head-field-table">Tipo</th>
+      <th class="head-field-table text-center">Ações</th>
+    </tr>
+    <tr *ngFor="let user of _users | async">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.role}}</td>
+      <td class="center-td">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-warning" (click)="putToEdit(user)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">Excluir</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<ng-template #form>
+  <div class="form">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Nome" formControlName="name">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Email" formControlName="email">
+        </div>
+      </div>
+      <div class="row" *ngIf="!edit">
+        <div class="col">
+          <input type="password" class="form-control" placeholder="Senha" formControlName="password">
+        </div>
+        <div class="col">
+          <input type="password" class="form-control" placeholder="Confirmar Senha" formControlName="password2">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <select class="custom-select" formControlName="role">
+            <option value="user">Usuário Comum</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary btn-submit" type="submit">Enviar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

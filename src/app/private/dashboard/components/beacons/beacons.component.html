@@ -1,0 +1,73 @@
+<div class="header">
+  <h1>{{title}}</h1>
+  <button class="btn btn-primary" (click)="changeView()" [innerHTML]="buttonTitle"></button>
+</div>
+
+<div class="list" *ngIf="view; else form">
+  <table>
+    <tr>
+      <th class="head-field-table">Nome</th>
+      <th class="head-field-table">Descrição</th>
+      <th class="head-field-table">Tipo</th>
+      <th class="head-field-table">Conteúdo</th>
+      <th class="head-field-table">Legenda</th>
+      <th class="head-field-table text-center">Ações</th>
+    </tr>
+    <tr *ngFor="let beacon of _beacons | async">
+      <td>{{beacon.name}}</td>
+      <td>
+        {{beacon.description | slice : 0 : 15}} ...
+        {{beacon.description | slice:beacon.description.length - 15 : beacon.description.length}}
+      </td>
+      <td>{{beacon.type}}</td>
+      <td>
+        {{beacon.content | slice : 0 : 15}} ...
+        {{beacon.content | slice:beacon.content.length - 15 : beacon.content.length}}
+      </td>
+      <td>
+        {{beacon.legend | slice : 0 : 15}} ...
+        {{beacon.legend | slice:beacon.legend.length - 15 : beacon.legend.length}}
+      </td>
+      <td class="center-td">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-warning" (click)="putToEdit(beacon)">Editar</button>
+          <button type="button" class="btn btn-danger" (click)="deleteBeacon(beacon.id)">Excluir</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<ng-template #form>
+  <div class="form">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Nome" formControlName="name">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Descrição" formControlName="description">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Conteúdo" formControlName="content">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <select class="custom-select" formControlName="type" placeholder="Tipo de Conteúdo">
+            <option value="image">URL Imagem</option>
+            <option value="video">URL Vídeo</option>
+            <option value="text">Texto</option>
+          </select>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Legenda" formControlName="legend">
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary btn-submit" type="submit">Enviar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

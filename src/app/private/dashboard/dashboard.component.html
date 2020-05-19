@@ -1,0 +1,38 @@
+<div class="flex">
+  <div class="content">
+
+    <div class="vertical-menu">
+      <a (click)="menu = 1" [class.active]="menu == 1">
+        <i class="fas fa-users"></i>
+        Usuários
+      </a>
+      <a (click)="menu = 2" [class.active]="menu == 2">
+        <i class="fas fa-user-check"></i>
+        Visitantes</a>
+      <a (click)="menu = 3" [class.active]="menu == 3">
+        <i class="fas fa-microchip"></i>
+        Beacons</a>
+      <a (click)="signOut()">
+        <i class="fas fa-door-open"></i>
+        Sair</a>
+    </div>
+
+    <div class="view">
+      <ng-container [ngSwitch]="menu">
+        <!-- Usuários -->
+        <ng-container *ngSwitchCase="1">  
+          <app-users></app-users>
+        </ng-container>
+        <!-- Visistantes -->
+        <ng-container *ngSwitchCase="2">
+          <app-visitants></app-visitants>
+        </ng-container>
+        <!-- Beacons -->
+        <ng-container *ngSwitchCase="3">
+          <app-beacons></app-beacons>
+        </ng-container>
+
+      </ng-container>
+    </div>
+  </div>
+</div>

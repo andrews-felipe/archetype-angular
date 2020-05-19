@@ -7,12 +7,14 @@ export const environment = {
 };
 
 // Link da API
-export const API_URL = 'http://locahost:3000'
+export const API_URL = 'https://museum-web-service.herokuapp.com/'
 
 // Endpoints
 export const ENDPOINT = {
-  "DADO" : '/dado',
-  "LOGIN" : '/auth/login'
+  "LOGIN" : '/auth',
+  "USERS" : '/users',
+  "VISITANTS" : '/visitantes',
+  "BEACONS" : '/beacons'
 }
 
 /*

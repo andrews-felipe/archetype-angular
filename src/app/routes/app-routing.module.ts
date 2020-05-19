@@ -8,7 +8,7 @@ const routes: Routes = [
   { path : 'login', loadChildren : '../public/public.module#PublicModule'},
   { path : 'home', loadChildren : '../private/private.module#PrivateModule', canActivate : [AuthGuard], canLoad:[AuthGuard]},  // guarda de módulo e rota
   
-  { path : '', redirectTo : 'login', pathMatch : 'full'},
+  { path : '', redirectTo : 'home', pathMatch : 'full'},
   { path : '**', component : PageNotFoundComponent}
 ];
 

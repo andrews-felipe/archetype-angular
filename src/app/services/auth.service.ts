@@ -15,7 +15,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * Método login com captura de token
@@ -23,13 +23,21 @@ export class AuthService {
    * @param password 
    * @returns função login
    */
-  login(email : string, password : string){
-    return this.http.post(`${API_URL}${ENDPOINT.LOGIN}`, {email : email , password : password})
-          .pipe(
-            tap((res:HttpHeaders)=>{
-              localStorage.setItem("acessToken", res.get("Authorization"))
-            })
-          )
+  login(form) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Basic " + btoa(`${form.email}:${form.password}`)
+      })
+    };
+    return this.http.post(`${API_URL}${ENDPOINT.LOGIN}`, {}, httpOptions)
+      .pipe(
+        tap((body: any) => {
+          localStorage.setItem("access_token", body.token)
+          localStorage.setItem("user", JSON.stringify(body.user))
+        })
+      )
   }
 
   /**
@@ -43,16 +51,16 @@ export class AuthService {
    * Método para acessar o valor do objeto que armazena o usuário
    * @returns Usuário Atual
    */
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  public get currentUserValue() {
+    return localStorage.getItem('access_token');
   }
 
 
   /**
    * Método para limpar o token do local storage
    */
-  cleanStorage(){
-    localStorage.removeItem("acessToken")
+  cleanStorage() {
+    localStorage.removeItem("access_token")
   }
 
 
@@ -60,24 +68,24 @@ export class AuthService {
    * Método para decodificar o token
    * @param token 
    */
-	getDecodedAccessToken(token) {
-		try {
-			return jwt_decode(token);
-		} catch (Error) {
-			return null;
-		}
+  getDecodedAccessToken(token) {
+    try {
+      return jwt_decode(token);
+    } catch (Error) {
+      return null;
+    }
   }
-  
+
   /**
    * Método para transformar o token Expiration ( Dado em segundos ) em um Date()
    * @returns date
    * @param secounds 
    */
-	timeToken(secounds) {
-		let dateTransform = new Date();
-		dateTransform.setSeconds(secounds);
-		return dateTransform;
-	}
+  timeToken(secounds) {
+    let dateTransform = new Date();
+    dateTransform.setSeconds(secounds);
+    return dateTransform;
+  }
 
 
 
